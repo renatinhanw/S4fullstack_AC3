@@ -9,12 +9,9 @@
   <body>
     <form id="formulario">
       <label>Nome:</label><input type="text" name="nome" /> <br />
-
       <label>Sobrenome:</label><input type="text" name="sobrenome" /> <br />
-
       <label>Time:</label><input type="text" name="time" /> <br />
-
-      <select id="regra">
+      <select id="posicao">
         <option value="defesa_direita">defesa direita</option>
         <option value="saida_de_rede">saída de rede</option>
         <option value="defesa_esquerda">defesa esquerda</option>
@@ -32,8 +29,8 @@
         var dados = {
           nome: $("[name=nome]").val(),
           sobrenome: $("[name=sobrenome]").val(),
-          time: $("[name=time]").val(),
-          regra: $("#regra option:selected").val(),
+          time_name: $("[name=time]").val(),
+          posicao: $("#posicao option:selected").val(),
         };
 
         $.ajax({
@@ -44,11 +41,11 @@
           data: JSON.stringify(dados),
           success: function (callback) {
             console.log(callback);
-            $("#respostas").append("Cadastro feito: \n" +  callback.nome +"\n" + callback.sobrenome +"\n" +callback.time +"\n" +callback.regra);
+            $("#respostas").append("Cadastro feito: \n" +  callback.nome +"\n" + callback.sobrenome +"\n" + callback.time_name + "\n" + callback.posicao);
             $("[name=nome]").val("");
             $("[name=sobrenome]").val("");
-            $("[name=time]").val("");
-            $("#regra").val(1);
+            $("[name=time_name]").val("");
+            $("#posicao").val(1);
           },
           error: function () {
             $(this).html("error!");

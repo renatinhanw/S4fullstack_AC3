@@ -13,8 +13,8 @@ def cadastro():
     json = request.get_json()
     nome = json['nome'].upper()
     sobrenome = json['sobrenome'].upper()
-    regra = json['regra'].upper()
-    return jsonify(nome=nome,sobrenome=sobrenome,regra=regra)
+    posicao = json['posicao'].upper()
+    return jsonify(nome=nome,sobrenome=sobrenome,posicao=posicao)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5008))
