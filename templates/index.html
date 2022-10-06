@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Jogador</title>
+    <h1>Cadastro de Jogadores</h1>
+  </head>
+  <body>
+    <form id="formulario">
+      <label>Nome:</label><input type="text" name="nome" /> <br />
+
+      <label>Sobrenome:</label><input type="text" name="sobrenome" /> <br />
+
+      <label>Time:</label><input type="text" name="time" /> <br />
+
+      <select id="regra">
+        <option value="defesa_direita">defesa direita</option>
+        <option value="saida_de_rede">saída de rede</option>
+        <option value="defesa_esquerda">defesa esquerda</option>
+        <option value="entrada_de_rede">entrada de rede</option>
+      </select>
+      <input type="submit" value="submit" />
+    </form>
+    <div><p id="respostas"></p></div>
+
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript">
+      $("#formulario").submit(function (e) {
+        e.preventDefault();
+
+        var dados = {
+          nome: $("[name=nome]").val(),
+          sobrenome: $("[name=sobrenome]").val(),
+          time: $("[name=time]").val(),
+          regra: $("#regra option:selected").val(),
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "/api/cadastro",
+          dataType: "json",
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(dados),
+          success: function (callback) {
+            console.log(callback);
+            $("#respostas").append("Cadastro feito: \n" +  callback.nome +"\n" + callback.sobrenome +"\n" +callback.time +"\n" +callback.regra);
+            $("[name=nome]").val("");
+            $("[name=sobrenome]").val("");
+            $("[name=time]").val("");
+            $("#regra").val(1);
+          },
+          error: function () {
+            $(this).html("error!");
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
